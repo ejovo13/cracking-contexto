@@ -23,7 +23,7 @@ filtered_words = [word.lower() for word in brown_words if word.lower() not in st
 freq_dist = FreqDist(filtered_words)
 
 # Get the top x words
-top_x_words = freq_dist.most_common(20000)  # Change 10000 to your desired number
+top_x_words = freq_dist.most_common(50000)  # Change 10000 to your desired number
 
 # Print the top x words
 file_name = "nltk_common_words.txt"

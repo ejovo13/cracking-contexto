@@ -5,3 +5,8 @@ def nltk_filtered_path() -> str:
     parent_dir = dirname(__file__)
     file_name = "nltk_filtered.txt"
     return join(parent_dir, file_name)
+
+def nltk_path() -> str:
+    parent_dir = dirname(__file__)
+    file_name = "nltk.txt"
+    return join(parent_dir, file_name)
