@@ -1,16 +1,21 @@
 import grequests
 import requests
+from requests import Response
 
 from .exceptions import *
 
-def get_words(input_file: str) -> list[str]:
+def get_words(input_file: str, word_limit: int = None) -> list[str]:
     """Get a list of words from `input_file`."""
+
     with open(input_file) as words:
 
         lines = words.readlines()
         words = [line.strip("\n") for line in lines]
 
-    return words
+    if word_limit is None:
+        return words
+    else:
+        return words[:word_limit]
 
 
 def get_urls(words: list[str], game_id: int, language_code = "en") -> list[str]:
@@ -22,7 +27,7 @@ def get_urls(words: list[str], game_id: int, language_code = "en") -> list[str]:
 
     return [api_call(word) for word in words]
 
-def extract_word_rank(response: requests.Response) -> tuple[str, int]:
+def extract_word_rank(response: Response) -> tuple[str, int]:
     """Extract the lemma and rank of a word from an API request.
 
     Raises WordNotFound, WordTooCommon, or WordDoesNotCount on an error"""
@@ -41,43 +46,49 @@ def extract_word_rank(response: requests.Response) -> tuple[str, int]:
 
     return (stem, word_score)
 
+def make_api_requests(urls: list[str], chunk_size: int, request_limit: int = None, print_progress = True) -> list[Response]:
+    """Make API requests in chunks."""
 
-def main():
-    """Extract a filtered list of words that don't return an error when making contexto API calls."""
+    if request_limit is None: request_limit = len(urls)
 
-    # -------------------------------- Parameters -------------------------------- #
-    request_limit = 20000
-    chunk_size = 100
-    dictionary_file = "nltk_common_words_20000.txt"
-    game_id = 425
-
-    filtered_output = "nltk_filtered.txt"
-    failed_words = "nltk_failed.csv"
-
-
-    # ----------------------------- Sending requests ----------------------------- #
-    words = get_words(dictionary_file)
-    urls = get_urls(words, game_id)
     response_chunks = [] # List of response chunks, needs to be flattened later!
 
     pos = 0
     while pos < request_limit:
 
         final_pos = pos + chunk_size
-
         request_chunk = [grequests.get(u) for u in urls[pos:final_pos]]
         response_chunks.append(grequests.map(request_chunk))
 
-        print("Processed chunk of {} requests! ({:.1f}%)".format(
-                                                                 chunk_size,
-                                                                 float(final_pos / request_limit) * 100
-                                                                )
-        )
+        if print_progress:
+            print("Processed chunk of {} requests! ({:.1f}%)".format(
+                                                                    chunk_size,
+                                                                    float(final_pos / request_limit) * 100
+                                                                    )
+            )
         pos += chunk_size
 
-
     # Flatten responses into a single list
-    responses = [x for chunk in response_chunks for x in chunk]
+    return [x for chunk in response_chunks for x in chunk]
+
+
+def main():
+    """Extract a filtered list of words that don't return an error when making contexto API calls."""
+
+    # -------------------------------- Parameters -------------------------------- #
+    request_limit = None
+    chunk_size = 50
+    dictionary_file = "nltk_common_words_50000_pt2.txt"
+    game_id = 425
+
+    filtered_output = "nltk_filtered_pt2.txt"
+    failed_words = "nltk_failed_pt2.csv"
+
+
+    # ----------------------------- Sending requests ----------------------------- #
+    words = get_words(dictionary_file, request_limit)
+    urls = get_urls(words, game_id)
+    responses = make_api_requests(urls, chunk_size, request_limit)
 
 
     # ----------------------------- Handle Responses ----------------------------- #
@@ -107,7 +118,7 @@ def main():
 
 
     print()
-    print("Handled {} total requests!".format(request_limit))
+    print("Handled {} total requests!".format(len(words)))
 
     # ------------------------------- File outputs ------------------------------- #
     with open(filtered_output, "w") as file:
