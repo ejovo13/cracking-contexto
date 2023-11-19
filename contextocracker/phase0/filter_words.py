@@ -2,7 +2,15 @@
 
 import argparse
 
-from ..data_collection_async import WordDoesNotCount, WordNotFound, WordTooCommon, extract_word_rank, get_urls, get_words, make_api_requests
+from ..data_collection_async import (
+    WordDoesNotCount,
+    WordNotFound,
+    WordTooCommon,
+    extract_word_rank,
+    get_urls,
+    get_words,
+    make_api_requests,
+)
 from ..resources import words_alpha_unfiltered
 
 _DEFAULT_START_INDEX = 1

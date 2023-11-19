@@ -3,7 +3,12 @@
 import argparse
 from datetime import date
 
-from .data_collection_async import extract_word_rank, get_urls, get_words, make_api_requests
+from .data_collection_async import (
+    extract_word_rank,
+    get_urls,
+    get_words,
+    make_api_requests,
+)
 from .resources import nltk_path
 
 # nov 18 2023 corresponds to the game id: 426
