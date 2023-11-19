@@ -1,5 +1,4 @@
 import grequests
-import requests
 from requests import Response
 
 from .exceptions import *
