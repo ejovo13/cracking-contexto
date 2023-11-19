@@ -10,3 +10,7 @@ license = "MIT"
 authors = [
     "Evan Voyles <ejovo13@yahoo.com>"
 ]
+
+[tool.poetry.scripts]
+filter_words = "contextocracker.phase0.filter_words:main"
+collect_scores = "contextocracker.collect_scores:main"

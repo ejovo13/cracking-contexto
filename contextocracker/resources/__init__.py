@@ -20,7 +20,7 @@ def words_alpha_unfiltered() -> str:
     return join(parent_dir, file_name)
 
 
-def words_alph_filtered() -> str:
+def words_alpha_filtered() -> str:
     """Return the full path to a list of words in 'words_alpha.txt' that contexto recognizes."""
     return join(dirname(__file__), "words_alpha_filtered.txt")
 
