@@ -1,9 +1,11 @@
 """Verify that the winners of all 425 games are in our total set of words."""
 
+from contextocracker.data_collection_async import (
+    extract_word_rank,
+    get_words,
+    make_api_requests,
+)
 from contextocracker.resources import brown_and_alpha_filtered
-from contextocracker.data_collection_async import get_words, make_api_requests, extract_word_rank
-
-
 
 all_words = set(get_words(brown_and_alpha_filtered()))
 
@@ -27,5 +29,3 @@ for response in responses:
         print("Something went wrong!")
 
 print(missing_words)
-
-

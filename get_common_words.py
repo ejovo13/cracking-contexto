@@ -4,14 +4,11 @@ Generated using ChatGPT, modified by hand.
 """
 
 import nltk
-from nltk import FreqDist
-from nltk.corpus import brown
-from nltk.corpus import stopwords
-from nltk.corpus import words
+from nltk.corpus import stopwords, words
 
 # Download NLTK resources (if not already downloaded)
-nltk.download('brown')
-nltk.download('stopwords')
+nltk.download("brown")
+nltk.download("stopwords")
 
 # Get words from the Brown Corpus
 # brown_words = brown.words()
@@ -19,7 +16,7 @@ words = words.words()
 
 
 # Remove stopwords
-stop_words = set(stopwords.words('english'))
+stop_words = set(stopwords.words("english"))
 filtered_words = [word.lower() for word in words if word.lower() not in stop_words]
 
 # Calculate word frequencies

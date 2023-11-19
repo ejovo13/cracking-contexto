@@ -1,61 +1,59 @@
 """Script to collect the scores using our dictionary with 12,000 words."""
 
-from datetime import datetime, date, timedelta
 import argparse
+from datetime import date
 
-
+from .data_collection_async import extract_word_rank, get_urls, get_words, make_api_requests
 from .resources import nltk_path
-from .data_collection_async import *
 
 # nov 18 2023 corresponds to the game id: 426
 _GAME_426_DAY = date.fromisoformat("2023-11-18")
 _DEFAULT_GAME_ID = 426 - (_GAME_426_DAY - date.today()).days
 _DEFAULT_CHUNK_SIZE = 100
-_DDOS_LIMIT = 28000 # Contexto starts sending errors if we go over 20000 requests
+_DDOS_LIMIT = 28000  # Contexto starts sending errors if we go over 20000 requests
+
 
 def handle_args() -> tuple[int, int, str, int]:
     """Parse arguments using `argparse` library. Returns the tuple (game_id, chunk_size, dictionary_file, word_limit)"""
 
     parser = argparse.ArgumentParser(
-                         prog="CollectRankings",
-                         description="Collect the contexto.me rankings for each word in our default dictionary (24k English words)",
-                         epilog=f"path to dictionary: {nltk_path()}",
+        prog="CollectRankings",
+        description="Collect the contexto.me rankings for each word in our default dictionary (24k English words)",
+        epilog=f"path to dictionary: {nltk_path()}",
     )
 
     parser.add_argument(
         "--id",
         help="id of the game to collect data for",
         type=int,
-        default=_DEFAULT_GAME_ID
+        default=_DEFAULT_GAME_ID,
     )
 
     parser.add_argument(
         "--chunk-size",
         help="Size of batch of API requests. Default 100.",
         type=int,
-        default=_DEFAULT_CHUNK_SIZE
+        default=_DEFAULT_CHUNK_SIZE,
     )
 
     parser.add_argument(
         "--limit",
         help="Limit the number of requests to make. Default None.",
         type=int,
-        default=None
+        default=None,
     )
 
     parser.add_argument(
         "--dict",
         help="Path to the input dictionary text file.",
         type=str,
-        default=nltk_path()
+        default=nltk_path(),
     )
 
     # -------------------------------- Parameters -------------------------------- #
     args = parser.parse_args()
 
-
     return args.id, args.chunk_size, args.dict, args.limit
-
 
 
 def main():
@@ -80,7 +78,6 @@ def main():
             print(f"Unexpected network error! {e}")
             exception_count += 1
 
-
     # ------------------------------- Write to csv ------------------------------- #
     output_csv = f"rankings_{game_id}.csv"
     with open(output_csv, "w") as csv:
@@ -93,5 +90,5 @@ def main():
     print("Number of exceptions: {}".format(exception_count))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
