@@ -1,0 +1,53 @@
+site_name: contextocracker
+
+site_description: Algorithm to solve the word guessing game hosted at https://contexto.me/
+site_author: Evan Voyles
+
+repo_url: https://github.com/ejovo13/cracking-contexto
+
+theme:
+  features:
+    - content.code.copy
+    - content.code.annotate
+
+  name: material
+  palette:
+    scheme: slate
+    primary: deep purple
+  icon:
+  admonition:
+    note: simple/meteor
+    abstract: octicons/checklist-16
+    info: octicons/info-16
+    tip: octicons/squirrel-16
+    success: octicons/check-16
+    question: octicons/question-16
+    warning: simple/meteor
+    failure: octicons/x-circle-16
+    danger: octicons/zap-16
+    bug: octicons/bug-16
+    example: octicons/beaker-16
+    quote: octicons/quote-16
+  # hljs_style: monokai
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+            - name: mermaid
+              class: mermaid
+              format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.tabbed:
+      alternate_style: true
+
+
+nav:
+    - Home: 'index.md'
+    - Installation: 'installation.md'
