@@ -83,11 +83,17 @@ def main():
     game_id = args.id
     chunk_size = args.chunk_size
     dictionary_file = args.dict
-    word_limit = args.word_limit
-    start_index = args.to - 1
-    end_index = args._from
+    word_limit = args.limit
+    start_index = args._from - 1
+    end_index = args.to
+
+    n_words = end_index - start_index
+
+    if n_words > _DDOS_LIMIT:
+        raise Exception(f"Number of words selected ({n_words}) surpasses DDOS limit: {_DDOS_LIMIT}")
 
     # ----------------------------- Send API requests ---------------------------- #
+
     all_words = get_words(dictionary_file, word_limit)
     words = all_words[start_index:end_index]
     urls = get_urls(words, game_id)
