@@ -1,0 +1,12 @@
+[tool.poetry.dependencies]
+python = "^3.10"
+nltk = "^3.8.1"
+
+[tool.poetry]
+name = "contextocracker"
+version = "0.0.1"
+description = "A set of tools to crack the contexto game hosted at https://contexto.me/"
+license = "MIT"
+authors = [
+    "Evan Voyles <ejovo13@yahoo.com>"
+]
