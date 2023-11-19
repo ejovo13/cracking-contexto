@@ -42986,7 +42986,6 @@ sharp
 sharpen
 sharpener
 sharpie
-sharpies
 sharpish
 sharply
 sharpness
