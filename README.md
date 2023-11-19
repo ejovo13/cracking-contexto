@@ -13,4 +13,3 @@ pip install contextocracker
 There is currently only one useful script: `collect_scores`
 
 ## Difficulties
-

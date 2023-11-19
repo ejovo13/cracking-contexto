@@ -9,7 +9,6 @@ from .data_collection_async import (
     get_words,
     make_api_requests,
 )
-
 from .resources import words_alpha_filtered
 
 # nov 18 2023 corresponds to the game id: 426
@@ -21,8 +20,8 @@ _DEFAULT_START_INDEX = 1
 _DEFAULT_END_INDEX = 25000
 
 
-def handle_args() -> tuple[int, int, str, int]:
-    """Parse arguments using `argparse` library. Returns the args object"""
+def handle_args() -> argparse.Namespace:
+    """Parse arguments using `argparse` library. Returns a namespace with parsed arguments."""
     parser = argparse.ArgumentParser(
         prog="CollectRankings",
         description="Collect the contexto.me rankings for each word in our default dictionary (53k English words)",
@@ -90,7 +89,9 @@ def main():
     n_words = end_index - start_index
 
     if n_words > _DDOS_LIMIT:
-        raise Exception(f"Number of words selected ({n_words}) surpasses DDOS limit: {_DDOS_LIMIT}")
+        raise Exception(
+            f"Number of words selected ({n_words}) surpasses DDOS limit: {_DDOS_LIMIT}"
+        )
 
     # ----------------------------- Send API requests ---------------------------- #
 
