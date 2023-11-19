@@ -123,10 +123,10 @@ def main():
     output_csv = f"rankings_{game_id}_{start_index}_{end_index}.csv"
     with open(output_csv, "w") as csv:
 
-        csv.write("word, rank\n")
+        csv.write("word,rank\n")
 
         for w in words:
-            csv.write(f"{w}, {word_rankings[w]}\n")
+            csv.write(f"{w},{word_rankings[w]}\n")
 
     print("Number of exceptions: {}".format(exception_count))
 
