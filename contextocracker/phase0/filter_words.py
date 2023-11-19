@@ -24,7 +24,7 @@ def handle_args() -> tuple[str, int, int, int]:
     """Parse arguments using `argparse` library. Returns the tuple (word_list_path, from_idx, to_idx, chunk_size)."""
     parser = argparse.ArgumentParser(
         prog="FilterWordList",
-        description="Extract words that are recognized by contexto from a starting word list.",
+        description="Extract words that are recognized by contexto from a word list with >200k English words.",
         epilog=f"path to default word list: {words_alpha_unfiltered()}",
     )
 
@@ -37,7 +37,7 @@ def handle_args() -> tuple[str, int, int, int]:
 
     parser.add_argument(
         "--from",
-        help="Starting index of words to filter. '--from 1' will start with the first word",
+        help="Starting index of words to filter. '--from 1' will start at the first word in our word list.",
         type=int,
         default=_DEFAULT_START_INDEX,
         dest="_from",
@@ -45,7 +45,7 @@ def handle_args() -> tuple[str, int, int, int]:
 
     parser.add_argument(
         "--to",
-        help="Final index of words to filter. '--to 10' will stop at the 10th word (inclusive)",
+        help="Final index of words to filter. '--to 10' will stop at the 10th word in our word list (inclusive)",
         type=int,
         default=_DEFAULT_END_INDEX,
     )

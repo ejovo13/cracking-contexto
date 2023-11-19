@@ -25,7 +25,7 @@ def handle_args() -> tuple[int, int, str, int]:
     """Parse arguments using `argparse` library. Returns the args object"""
     parser = argparse.ArgumentParser(
         prog="CollectRankings",
-        description="Collect the contexto.me rankings for each word in our default dictionary (24k English words)",
+        description="Collect the contexto.me rankings for each word in our default dictionary (53k English words)",
         epilog=f"path to dictionary: {words_alpha_filtered()}",
     )
 
