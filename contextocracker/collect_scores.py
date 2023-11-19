@@ -19,8 +19,7 @@ _DDOS_LIMIT = 28000  # Contexto starts sending errors if we go over 20000 reques
 
 
 def handle_args() -> tuple[int, int, str, int]:
-    """Parse arguments using `argparse` library. Returns the tuple (game_id, chunk_size, dictionary_file, word_limit)"""
-
+    """Parse arguments using `argparse` library. Returns the tuple (game_id, chunk_size, dictionary_file, word_limit)."""
     parser = argparse.ArgumentParser(
         prog="CollectRankings",
         description="Collect the contexto.me rankings for each word in our default dictionary (24k English words)",
@@ -62,8 +61,7 @@ def handle_args() -> tuple[int, int, str, int]:
 
 
 def main():
-    """Collect scores for a given day"""
-
+    """Collect scores for a given day."""
     game_id, chunk_size, dictionary_file, word_limit = handle_args()
 
     # ----------------------------- Send API requests ---------------------------- #

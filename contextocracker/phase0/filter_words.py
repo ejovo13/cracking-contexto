@@ -22,7 +22,6 @@ _DEFAULT_GAME_ID = 1
 
 def handle_args() -> tuple[str, int, int, int]:
     """Parse arguments using `argparse` library. Returns the tuple (word_list_path, from_idx, to_idx, chunk_size)."""
-
     parser = argparse.ArgumentParser(
         prog="FilterWordList",
         description="Extract words that are recognized by contexto from a starting word list.",
@@ -68,7 +67,7 @@ def handle_args() -> tuple[str, int, int, int]:
 
 
 def main():
-
+    """Extract words that are recognized by contexto from a starting word list."""
     # ---------------------------- Program parameters ---------------------------- #
     word_list_path, starting_index, ending_index, chunk_size = handle_args()
     filtered_output = f"filtered_{starting_index}_{ending_index}.txt"

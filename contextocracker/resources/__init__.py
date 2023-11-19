@@ -1,3 +1,5 @@
+"""Utilities used to retrieve the paths to various coropora."""
+
 from os.path import dirname, join
 
 
@@ -24,5 +26,5 @@ def words_alph_filtered() -> str:
 
 
 def brown_and_alpha_filtered() -> str:
-    """Return the union of brown_words_filtered.txt and words_alpha_filtered.txt"""
+    """Return the union of brown_words_filtered.txt and words_alpha_filtered.txt."""
     return join(dirname(__file__), "brown_and_word_list.txt")
